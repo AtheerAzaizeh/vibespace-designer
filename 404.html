@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>الصفحة غير موجودة | VibeSpace Designer</title>
-<link rel="icon" href="/vibespace-designer/assets/icons/icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/vibespace-designer/assets/css/app.css">
+<style>body{font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;background:#F1F2EE;color:#1C201D;padding:40px 16px;margin:0}main{max-width:620px;margin:0 auto}a{color:#2F5D50}@media(prefers-color-scheme:dark){body{background:#141715;color:#ECEFEA}a{color:#7FC2AE}}</style>
 </head>
 <body>
-<div class="wrap legal">
+<main>
   <h1>الصفحة غير موجودة</h1>
-  <p>الرابط الذي فتحته لا يقود إلى شيء. <a href="/vibespace-designer/">عد إلى VibeSpace Designer</a>.</p>
-</div>
+  <p>الرابط الذي فتحته لا يقود إلى شيء. <a href="./" id="home">عد إلى VibeSpace Designer</a>.</p>
+</main>
+<script>document.getElementById('home').href = location.pathname.split('/').slice(0, 2).join('/') + '/';</script>
 </body>
 </html>
