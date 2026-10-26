@@ -164,11 +164,20 @@ const GRADES = {
   creative: 'saturate(1.35) brightness(1.04) contrast(1.05)',
 };
 
-/** Colour-grades an uploaded photo. This is a visual approximation, not a redesign. */
-export function drawPhoto(cv, { after, style: S, wall, img }) {
-  const ctx = cv.getContext('2d');
+function cover(ctx, img) {
   const s = Math.max(W / img.width, H / img.height), w = img.width * s, h = img.height * s;
+  ctx.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
+}
+
+/**
+ * Draws an uploaded photo. With `aiImg` (the AI-generated "after" image) the after side shows it;
+ * without it, the after side is only a colour grade, not a redesign.
+ */
+export function drawPhoto(cv, { after, style: S, wall, img, aiImg }) {
+  const ctx = cv.getContext('2d');
   ctx.clearRect(0, 0, W, H);
+  if (after && aiImg) { cover(ctx, aiImg); return; }
+  const s = Math.max(W / img.width, H / img.height), w = img.width * s, h = img.height * s;
   ctx.filter = after ? (GRADES[S.id] || 'none') : 'none';
   ctx.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
   ctx.filter = 'none';

@@ -122,6 +122,11 @@ header.top { display: flex; flex-wrap: wrap; align-items: end; justify-content: 
 .sw code { font-size: 11px; color: var(--muted); direction: ltr; text-align: start; }
 .sw-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; font-size: 13px; }
 .tips { display: grid; gap: 14px; }
+.tips-inline { margin: 0; padding-inline-start: 18px; display: grid; gap: 4px; font-size: 13px; }
+.btn.busy { opacity: .7; pointer-events: none; }
+.btn.busy::before { content: ""; width: 14px; height: 14px; border: 2px solid currentColor; border-inline-end-color: transparent; border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.compare.ai::after { content: "صورة مولّدة بالذكاء الاصطناعي"; position: absolute; bottom: 10px; left: 10px; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: rgba(20,22,20,.72); color: #fff; pointer-events: none; }
 .tips ul, .sources ul { margin: 0; padding-inline-start: 18px; display: grid; gap: 6px; }
 
 .money { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; display: grid; gap: 14px; }

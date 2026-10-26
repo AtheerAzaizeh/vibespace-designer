@@ -57,7 +57,11 @@
         <label class="btn primary file-label">ارفع صورة غرفتك<input type="file" id="photo" accept="image/*"></label>
         <button class="btn" id="sampleBtn" type="button">الغرفة النموذجية</button>
       </div>
-      <span class="muted small" id="photoNote">تعرض الآن غرفة نموذجية مرسومة. صورتك لا تغادر جهازك.</span>
+      <div class="upload" id="aiRow" hidden>
+        <button class="btn primary" id="aiBtn" type="button">✦ صمّم غرفتي بالذكاء الاصطناعي</button>
+        <span class="muted small" id="aiStatus"></span>
+      </div>
+      <span class="muted small" id="photoNote">تعرض الآن غرفة نموذجية مرسومة. صورتك لا تغادر جهازك إلا إذا ضغطت زر الذكاء الاصطناعي.</span>
     </div>
   </section>
 
@@ -76,6 +80,7 @@
         <div class="handle" id="handle"></div>
       </div>
       <div class="analysis" id="analysis"></div>
+      <ul class="tips-inline" id="aiIssues" hidden></ul>
     </div>
 
     <aside class="panel" aria-label="قائمة التسوق">

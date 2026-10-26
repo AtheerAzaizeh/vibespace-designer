@@ -2,6 +2,14 @@
   publish = "."
   command = ""
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["data/catalog.json"]
+
+[functions.redesign]
+  timeout = 60
+
 [[headers]]
   for = "/*"
   [headers.values]

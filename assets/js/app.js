@@ -5,7 +5,7 @@ const CAT_ROLE = { rug: 3, curtain: 3, pouf: 2, chair: 2, art: 2, shelf: 1, plan
 const SITE = typeof location !== 'undefined' ? location.origin + location.pathname.replace(/[^/]*$/, '') : '';
 
 let CATALOG;
-const state = { style: 'warm', budget: 1200, selected: new Set(), wall: null, photo: null };
+const state = { style: 'warm', budget: 1200, selected: new Set(), wall: null, photo: null, photoFile: null, ai: null, aiImg: null };
 
 /* ---------- helpers ---------- */
 export function money(ils) {
@@ -50,9 +50,10 @@ function syncUrl() { history.replaceState(null, '', `${location.pathname}?${new 
 function render() {
   const S = currentStyle();
   const has = cat => selectedItems().some(p => p.cat === cat);
-  const opts = { style: S, wall: state.wall, has, img: state.photo };
+  const opts = { style: S, wall: state.wall, has, img: state.photo, aiImg: state.aiImg };
   const draw = state.photo ? drawPhoto : drawRoom;
   draw($('cvBefore'), { ...opts, after: false }); draw($('cvAfter'), { ...opts, after: true });
+  $('compare').classList.toggle('ai', !!(state.photo && state.aiImg));
 }
 function renderChips() {
   $('styleChips').innerHTML = CATALOG.styles.map(s =>
@@ -66,14 +67,64 @@ function renderPalette() {
   document.documentElement.style.setProperty('--style-accent', S.palette[2][0]);
 }
 function renderTips() {
-  const S = currentStyle();
-  $('tipsLight').innerHTML = S.light.map(t => `<li>${esc(t)}</li>`).join('');
-  $('tipsLayout').innerHTML = S.layout.map(t => `<li>${esc(t)}</li>`).join('');
-  const rows = state.photo
-    ? ['تم استلام صورتك محلياً', 'المعاينة تلوين تقريبي حسب الطابع', 'التحليل الكامل للصورة قيد التطوير']
-    : ['غرفة نموذجية 3.2 × 3.8 م', ...S.analysis.slice(0, 2)];
-  const lbl = ['تحليل المساحة', 'الإضاءة', 'ملاحظة'];
+  const S = currentStyle(), A = state.ai;
+  const light = A?.light?.length ? A.light : S.light, layout = A?.layout?.length ? A.layout : S.layout;
+  $('tipsLight').innerHTML = light.map(t => `<li>${esc(t)}</li>`).join('');
+  $('tipsLayout').innerHTML = layout.map(t => `<li>${esc(t)}</li>`).join('');
+  let rows, lbl;
+  if (A) {
+    rows = [`${A.room_type || 'غرفة'}${A.size_estimate ? ' · ' + A.size_estimate : ''}`, `النافذة: ${A.window_side || 'غير واضحة'} · الجدران: ${A.wall_color || ''}`, `الفوضى: ${A.clutter_level || ''}`];
+    lbl = ['تحليل المساحة', 'الضوء والجدران', 'الترتيب'];
+  } else if (state.photo) {
+    rows = ['تم استلام صورتك محلياً', 'اضغط «صمّم غرفتي بالذكاء الاصطناعي» للتحليل', 'بدون ذلك، «بعد» تلوين تقريبي فقط'];
+    lbl = ['تحليل المساحة', 'الخطوة التالية', 'ملاحظة'];
+  } else {
+    rows = ['غرفة نموذجية 3.2 × 3.8 م', ...S.analysis.slice(0, 2)];
+    lbl = ['تحليل المساحة', 'الإضاءة', 'ملاحظة'];
+  }
   $('analysis').innerHTML = rows.map((t, i) => `<div class="stat"><span>${lbl[i]}</span><b>${esc(t)}</b></div>`).join('');
+  const issues = $('aiIssues');
+  issues.hidden = !(A?.issues?.length);
+  issues.innerHTML = (A?.issues || []).map(t => `<li>${esc(t)}</li>`).join('');
+}
+
+/* ---------- AI redesign ---------- */
+function jpegBase64(img, max) {
+  const s = Math.min(1, max / Math.max(img.width, img.height));
+  const c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+  c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+  return c.toDataURL('image/jpeg', 0.86).split(',')[1];
+}
+async function runAI() {
+  if (!state.photoFile) return;
+  const btn = $('aiBtn'), st = $('aiStatus');
+  btn.classList.add('busy'); btn.disabled = true;
+  st.textContent = 'نحلّل الصورة ونرسم الغرفة بعد التعديل، قد يستغرق هذا حتى دقيقة…';
+  try {
+    const img0 = state.photo;
+    const payload = { image: jpegBase64(img0, 1024), imageSmall: jpegBase64(img0, 500), aspect: +(img0.width / img0.height).toFixed(3), mime: 'image/jpeg', styleId: state.style, budget: state.budget };
+    const res = await fetch('api/redesign', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.message || (res.status === 503 ? 'الخدمة غير مفعّلة بعد (مفاتيح Cloudflare ناقصة).' : 'فشل الطلب.'));
+    state.ai = data.analysis;
+    if (Array.isArray(data.items) && data.items.length) {
+      const valid = new Set(products().map(p => p.sku));
+      state.selected = new Set(data.items.filter(s => valid.has(s)));
+    }
+    if (data.image) {
+      const im = new Image();
+      await new Promise((ok, bad) => { im.onload = ok; im.onerror = bad; im.src = `data:${data.imageMime || 'image/png'};base64,${data.image}`; });
+      state.aiImg = im;
+      st.textContent = 'جاهز. اسحب المقبض لتقارن، وراجع القائمة والاقتراحات.';
+    } else {
+      state.aiImg = null;
+      st.textContent = data.imageError === 'image_rejected' ? 'تم التحليل، لكن نموذج الصور رفض هذه الصورة. جرّب صورة أوضح دون أشخاص.' : data.imageError === 'image_rate_limited' ? 'تم التحليل، لكن حصة توليد الصور المجانية انتهت لليوم.' : 'تم التحليل، لكن تعذّر توليد الصورة هذه المرة.';
+    }
+    renderTips(); renderList(); render();
+    toast('اكتمل التصميم بالذكاء الاصطناعي');
+  } catch (err) {
+    st.textContent = err.message || 'حدث خطأ.';
+  } finally { btn.classList.remove('busy'); btn.disabled = false; }
 }
 function itemHTML(p, on) {
   const S = currentStyle(), st = CATALOG.stores[p.store], color = S.palette[CAT_ROLE[p.cat] ?? 2][0];
@@ -125,7 +176,8 @@ async function copy(text, okMsg) {
 function bind() {
   $('styleChips').addEventListener('click', e => {
     const b = e.target.closest('[data-style]'); if (!b) return;
-    state.style = b.dataset.style; state.wall = null; autofit(); renderAll();
+    state.style = b.dataset.style; state.wall = null; state.ai = null; state.aiImg = null; autofit(); renderAll();
+    if (state.photoFile) $('aiStatus').textContent = 'تغيّر الطابع. اضغط الزر مجدداً لإعادة التصميم.';
   });
   $('budget').addEventListener('input', e => { state.budget = +e.target.value; autofit(); renderBudget(); renderList(); render(); });
   $('autofit').addEventListener('click', () => { autofit(); renderList(); render(); toast('تم اختيار أفضل القطع ضمن ميزانيتك'); });
@@ -152,11 +204,17 @@ function bind() {
     const f = e.target.files && e.target.files[0]; if (!f) return;
     if (f.size > 15 * 1024 * 1024) { toast('الصورة أكبر من 15 ميغابايت'); return; }
     const img = new Image();
-    img.onload = () => { state.photo = img; $('photoNote').textContent = 'تعرض الآن صورتك مع تلوين بحسب الطابع. الصورة تبقى على جهازك.'; renderTips(); render(); URL.revokeObjectURL(img.src); };
+    img.onload = () => {
+      state.photo = img; state.photoFile = f; state.ai = null; state.aiImg = null;
+      $('photoNote').textContent = 'صورتك معروضة. اضغط الزر لتحليلها وإعادة تصميمها؛ عندها فقط تُرسل الصورة للمعالجة.';
+      $('aiRow').hidden = false; $('aiStatus').textContent = '';
+      renderTips(); render(); URL.revokeObjectURL(img.src);
+    };
     img.onerror = () => toast('تعذّر قراءة الصورة');
     img.src = URL.createObjectURL(f);
   });
-  $('sampleBtn').addEventListener('click', () => { state.photo = null; $('photo').value = ''; $('photoNote').textContent = 'تعرض الآن غرفة نموذجية مرسومة. صورتك لا تغادر جهازك.'; renderTips(); render(); });
+  $('aiBtn').addEventListener('click', runAI);
+  $('sampleBtn').addEventListener('click', () => { state.photo = null; state.photoFile = null; state.ai = null; state.aiImg = null; $('photo').value = ''; $('aiRow').hidden = true; $('photoNote').textContent = 'تعرض الآن غرفة نموذجية مرسومة. صورتك لا تغادر جهازك إلا إذا ضغطت زر الذكاء الاصطناعي.'; renderTips(); render(); });
   $('split').addEventListener('input', e => setSplit(e.target.value));
 }
 
