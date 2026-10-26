@@ -1,0 +1,30 @@
+name: Weekly price check
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'   # Mondays 04:00 UTC (07:00 Israel in summer, 06:00 in winter)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prices:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Read live prices
+        run: node scripts/check-prices.mjs --write
+      - name: Open a pull request if anything changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: refresh store prices"
+          title: "Weekly price refresh"
+          body: "Automated price re-check against IKEA ישראל, Fox Home and Home Center. Review the diff, then merge to publish."
+          branch: chore/price-refresh
+          delete-branch: true
+          labels: prices

@@ -1,0 +1,15 @@
+{
+  "name": "vibespace-designer",
+  "version": "1.0.0",
+  "description": "Redesign a room or desk corner on a budget, with a real shopping list from Israeli stores.",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "serve": "npx --yes serve -l 4173 .",
+    "prices": "node scripts/check-prices.mjs",
+    "prices:write": "node scripts/check-prices.mjs --write"
+  },
+  "license": "MIT"
+}

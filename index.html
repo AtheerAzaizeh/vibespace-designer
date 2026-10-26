@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VibeSpace Designer | صمّم غرفتك بميزانيتك</title>
+<meta name="description" content="ارفع صورة غرفتك أو مكتبك، اختر الطابع وحدّد ميزانيتك، واحصل على قائمة تسوق بقطع حقيقية من IKEA ישראל وFox Home وHome Center مع لوحة ألوان متناسقة.">
+<meta name="theme-color" content="#2F5D50" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141715" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://atheerazaizeh.github.io/vibespace-designer/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="VibeSpace Designer">
+<meta property="og:description" content="صمّم غرفتك أو زاوية مكتبك بميزانيتك، واحصل على قائمة تسوق جاهزة من متاجر إسرائيلية.">
+<meta property="og:url" content="https://atheerazaizeh.github.io/vibespace-designer/">
+<meta property="og:image" content="https://atheerazaizeh.github.io/vibespace-designer/assets/icons/og.png">
+<meta property="og:locale" content="ar_IL">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/app.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"VibeSpace Designer","applicationCategory":"DesignApplication","operatingSystem":"Web","inLanguage":"ar","offers":{"@type":"Offer","price":"0","priceCurrency":"ILS"},"description":"أداة لإعادة تصميم الغرف والمكاتب بالميزانية المتاحة مع قائمة تسوق من متاجر إسرائيلية."}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">تخطَّ إلى المحتوى</a>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <h1>VibeSpace Designer</h1>
+      <p class="tag">صمّم غرفتك أو زاوية مكتبك بميزانيتك، واحصل على قائمة تسوق جاهزة.</p>
+    </div>
+    <span class="demo-pill" id="pill">منتجات حقيقية من IKEA ישראל وFox Home وHome Center</span>
+  </header>
+
+  <main id="main" style="display:contents">
+  <section class="controls" aria-label="إعدادات التصميم">
+    <div class="ctl">
+      <span class="ctl-label" id="lblStyle">١. اختر الطابع</span>
+      <div class="chips" id="styleChips" role="group" aria-labelledby="lblStyle"></div>
+    </div>
+    <div class="ctl">
+      <span class="ctl-label">٢. حدّد ميزانيتك</span>
+      <div class="budget-row">
+        <input type="range" id="budget" min="100" max="3000" step="50" value="1200" aria-label="الميزانية بالشيكل" dir="ltr">
+        <span class="budget-val num" id="budgetVal"></span>
+      </div>
+      <span class="muted small" id="priceNote"></span>
+    </div>
+    <div class="ctl">
+      <span class="ctl-label">٣. صورة المساحة</span>
+      <div class="upload">
+        <label class="btn primary file-label">ارفع صورة غرفتك<input type="file" id="photo" accept="image/*"></label>
+        <button class="btn" id="sampleBtn" type="button">الغرفة النموذجية</button>
+      </div>
+      <span class="muted small" id="photoNote">تعرض الآن غرفة نموذجية مرسومة. صورتك لا تغادر جهازك.</span>
+    </div>
+  </section>
+
+  <section class="studio">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>قبل وبعد</h2>
+        <span class="cap">اسحب المقبض لتقارن</span>
+      </div>
+      <div class="compare" id="compare">
+        <canvas id="cvAfter" width="960" height="600" aria-label="الغرفة بعد التصميم"></canvas>
+        <div class="before-layer" id="beforeLayer"><canvas id="cvBefore" width="960" height="600" aria-label="الغرفة قبل التصميم"></canvas></div>
+        <span class="tagl after">بعد</span>
+        <span class="tagl before">قبل</span>
+        <input type="range" id="split" min="0" max="100" value="50" dir="ltr" aria-label="موضع المقارنة بين قبل وبعد">
+        <div class="handle" id="handle"></div>
+      </div>
+      <div class="analysis" id="analysis"></div>
+    </div>
+
+    <aside class="panel" aria-label="قائمة التسوق">
+      <div class="panel-head">
+        <h2>قائمة التسوق الذكية</h2>
+        <button class="btn" id="autofit" type="button">ملاءمة تلقائية</button>
+      </div>
+      <div class="budget-meter">
+        <div class="meter-row"><span>المجموع <b class="num" id="total"></b> من <span class="num" id="budgetOf"></span></span><span class="status" id="status"></span></div>
+        <div class="meter" id="meter"><i id="meterFill"></i></div>
+      </div>
+      <div class="sec-label">في سلّتك</div>
+      <ul class="plist" id="inList"></ul>
+      <div class="sec-label" id="outLabel">بدائل وإضافات</div>
+      <ul class="plist" id="outList"></ul>
+      <div class="list-actions">
+        <button class="btn" id="copyList" type="button">انسخ القائمة</button>
+        <button class="btn" id="shareLink" type="button">شارك رابط التصميم</button>
+        <a class="btn" id="waShare" href="#" target="_blank" rel="noopener">أرسل عبر واتساب</a>
+      </div>
+    </aside>
+  </section>
+
+  <section class="lower">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>لوحة الألوان</h2>
+        <span class="cap" id="paletteName"></span>
+      </div>
+      <div class="swatches" id="swatches"></div>
+      <div class="sw-actions">
+        <span class="muted">اضغط على لون لتجربته على الجدار وإبراز القطع التي تحمله.</span>
+        <button class="btn" id="copyPalette" type="button">انسخ الأكواد</button>
+      </div>
+    </div>
+    <div class="panel tips">
+      <h2>اقتراحات التصميم</h2>
+      <div><h3>الإضاءة</h3><ul id="tipsLight"></ul></div>
+      <div><h3>توزيع الأثاث</h3><ul id="tipsLayout"></ul></div>
+    </div>
+  </section>
+
+  <section class="money" aria-label="نموذج الربح">
+    <div class="panel-head">
+      <h2>كيف تربح المنصة من هذا التصميم</h2>
+      <span class="cap">نسب العمولة وأسعار الباقات افتراضية، أما أسعار المنتجات فحقيقية</span>
+    </div>
+    <div class="tiers">
+      <div class="tier hl">
+        <span class="muted small">عمولة هذه السلة</span>
+        <span class="big num" id="commission"></span>
+        <p id="commissionNote"></p>
+      </div>
+      <div class="tier"><h3>مجاني</h3><p>تصميمان في الشهر، قائمة تسوق، لوحة ألوان.</p></div>
+      <div class="tier"><h3>برو <span class="num" id="proPrice"></span></h3><p>تصاميم غير محدودة، عدة زوايا للغرفة، تصدير مخطط بالمقاسات.</p></div>
+      <div class="tier"><h3>جلسة مصمم <span class="num" id="designerPrice"></span></h3><p>مكالمة ٣٠ دقيقة مع مصمم ديكور يراجع تصميمك وقائمتك.</p></div>
+    </div>
+  </section>
+
+  <section class="panel sources" aria-label="مصادر الأسعار">
+    <div class="panel-head">
+      <h2>من أين جاءت الأسعار</h2>
+      <span class="cap" id="checkedAt"></span>
+    </div>
+    <ul>
+      <li><a href="https://www.ikea.com/il/he/" target="_blank" rel="noopener">IKEA ישראל (ikea.com/il)</a>: أسعار الموقع الرسمي بالشيكل شاملة الضريبة. التوصيل غير مشمول.</li>
+      <li><a href="https://www.foxhome.co.il/" target="_blank" rel="noopener">Fox Home (foxhome.co.il)</a>: الأسعار المعروضة هي أسعار المبيعات الجارية على الموقع، والسعر الأصلي مذكور بجانب كل قطعة.</li>
+      <li><a href="https://www.homecenter.co.il/" target="_blank" rel="noopener">Home Center (homecenter.co.il)</a>: سعر الموقع، والتوصيل للمنزل 49 ₪ خلال 10 أيام عمل حسب صفحة المنتج.</li>
+      <li>النباتات في القائمة صناعية (سلسلة FEJKA) لأن IKEA ישראל لا تبيع نباتات حية عبر الموقع.</li>
+      <li>الأسعار تُراجَع آلياً كل أسبوع. تأكّد من السعر النهائي في صفحة المتجر قبل الشراء.</li>
+    </ul>
+  </section>
+  </main>
+
+  <footer class="site">
+    <span>© <span id="year"></span> VibeSpace Designer. الأسماء التجارية ملك لأصحابها.</span>
+    <nav><a href="privacy.html">الخصوصية</a><a href="terms.html">الشروط والإفصاح عن العمولة</a><a href="https://github.com/AtheerAzaizeh/vibespace-designer" target="_blank" rel="noopener">الكود المصدري</a></nav>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

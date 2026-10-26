@@ -1,0 +1,97 @@
+{
+  "$schema": "./catalog.schema.json",
+  "currency": "ILS",
+  "price_checked_at": "2026-10-26",
+  "stores": {
+    "ikea": { "name": "IKEA ישראל", "domain": "ikea.com/il", "home": "https://www.ikea.com/il/he/", "commission_rate": 0.03, "commission_note": "نسبة افتراضية؛ لا يوجد برنامج شراكة معلن" },
+    "fox": { "name": "Fox Home", "domain": "foxhome.co.il", "home": "https://www.foxhome.co.il/", "commission_rate": 0.05, "commission_note": "نسبة افتراضية" },
+    "hc": { "name": "Home Center", "domain": "homecenter.co.il", "home": "https://www.homecenter.co.il/", "commission_rate": 0.05, "commission_note": "نسبة افتراضية" }
+  },
+  "categories": {
+    "rug": "سجادة", "floorLamp": "إضاءة أرضية", "pendant": "إضاءة معلقة", "curtain": "ستائر", "plant": "نباتات",
+    "shelf": "تخزين", "art": "فن جداري", "deskLamp": "إضاءة مكتب", "string": "إضاءة جو", "chair": "جلوس", "pouf": "جلوس"
+  },
+  "styles": [
+    {
+      "id": "warm", "name": "دافئ", "paletteName": "خشب العسل وكتان الرمل", "glow": "#FFC47A", "floor": "#9C6B47", "desk": "#7A5238",
+      "palette": [["#E8D6C0", "رملي فاتح"], ["#9C6B47", "خشب العسل"], ["#C2703F", "طين محروق"], ["#6E7D57", "زيتون"], ["#F3E6D3", "كتان"]],
+      "analysis": ["ضوء النافذة يكفي نهاراً فقط", "الإضاءة الحالية بيضاء باردة 6500K", "الجدار الخلفي فارغ ويحتاج نقطة تركيز"],
+      "light": ["استبدل المصباح السقفي البارد بمصادر منخفضة بحرارة 2700K.", "ضع مصباحاً أرضياً في الزاوية الأبعد عن النافذة لتوزيع الضوء.", "أضف سلسلة إضاءة خافتة للمساء بدلاً من الإنارة الكاملة."],
+      "layout": ["أبقِ المكتب مواجهاً للجدار وجانبياً للنافذة لتجنب الانعكاس على الشاشة.", "سجادة كبيرة تحت منطقة الجلوس تجمع الغرفة وتخفف الصدى.", "تخلّص من الصناديق على الأرض وانقل التخزين إلى رف علوي."],
+      "products": [
+        { "sku": "ikea-00321317", "cat": "floorLamp", "name": "ÅRSTID مصباح أرضي نحاسي بغطاء قماش أبيض", "store": "ikea", "price": 275, "url": "https://www.ikea.com/il/he/p/arstid-floor-lamp-brass-white-00321317/" },
+        { "sku": "ikea-50277393", "cat": "rug", "name": "LOHALS سجادة جوت منسوجة طبيعية 160×230 سم", "store": "ikea", "price": 595, "url": "https://www.ikea.com/il/he/p/lohals-rug-flatwoven-natural-50277393/" },
+        { "sku": "ikea-70605416", "cat": "curtain", "name": "GINSTMOTT ستائر بيج بحلقات، زوج 145×300 سم", "store": "ikea", "price": 125, "url": "https://www.ikea.com/il/he/p/ginstmott-curtains-1-pair-beige-with-eyelets-70605416/" },
+        { "sku": "ikea-60508072", "cat": "deskLamp", "name": "TÄRNABY مصباح طاولة بيج قابل للتعتيم 25 سم", "store": "ikea", "price": 125, "url": "https://www.ikea.com/il/he/p/taernaby-table-lamp-dimmable-beige-60508072/" },
+        { "sku": "ikea-10615244", "cat": "plant", "name": "FEJKA مونستيرا صناعية بأصيص 90 سم", "store": "ikea", "price": 195, "url": "https://www.ikea.com/il/he/p/fejka-artificial-potted-plant-in-outdoor-monstera-10615244/" },
+        { "sku": "ikea-00385314", "cat": "pouf", "name": "SANDARED بوف بيج 45 سم", "store": "ikea", "price": 245, "url": "https://www.ikea.com/il/he/p/sandared-pouffe-beige-00385314/" },
+        { "sku": "ikea-00601921", "cat": "art", "name": "BLODFLÄDER لوحة بإطار «عصفوران» 40×50 سم", "store": "ikea", "price": 145, "url": "https://www.ikea.com/il/he/p/blodflaeder-picture-two-birds-00601921/" },
+        { "sku": "ikea-70653327", "cat": "shelf", "name": "LACK رف جداري بلون الجوز 110×26 سم", "store": "ikea", "price": 95, "url": "https://www.ikea.com/il/he/p/lack-wall-shelf-brown-walnut-effect-70653327/" },
+        { "sku": "ikea-30421023", "cat": "string", "name": "LEDFYR سلسلة إضاءة LED داخلية 12 لمبة", "store": "ikea", "price": 19, "url": "https://www.ikea.com/il/he/p/ledfyr-led-lighting-chain-with-12-lights-indoor-battery-operated-silver-colour-30421023/" },
+        { "sku": "ikea-70492202", "cat": "chair", "name": "FLINTAN كرسي مكتب بيج بظهر شبكي", "store": "ikea", "price": 395, "url": "https://www.ikea.com/il/he/p/flintan-office-chair-beige-70492202/" },
+        { "sku": "fox-0335560300", "cat": "deskLamp", "name": "Bali مصباح LED بقاعدة خشب وغطاء صوف", "store": "fox", "price": 71.94, "list_price": 119.9, "url": "https://www.foxhome.co.il/products/0335560300" },
+        { "sku": "fox-0321890300", "cat": "rug", "name": "Dexter سجادة يدوية بيج طبيعي 150×90 سم", "store": "fox", "price": 221.94, "list_price": 369.9, "url": "https://www.foxhome.co.il/products/0321890300" }
+      ]
+    },
+    {
+      "id": "modern", "name": "عصري بسيط", "paletteName": "أبيض طباشيري ورمادي حجري", "glow": "#FFF6E8", "floor": "#C9B79C", "desk": "#EFEFEB",
+      "palette": [["#EFEFEB", "أبيض طباشيري"], ["#2B2D2C", "فحمي"], ["#BFC2BC", "رمادي حجري"], ["#8A9A8E", "مريمية"], ["#C9B79C", "بلوط فاتح"]],
+      "analysis": ["المساحة مزدحمة بقطع صغيرة", "لا يوجد مصدر ضوء للمهام", "ألوان الجدار والأرض متقاربة وباهتة"],
+      "light": ["إضاءة معلقة فوق المكتب تعطي ضوءاً متساوياً دون ظلال.", "مصباح مكتب بذراع متحرك للعمل المركّز.", "ستائر فاتحة تنشر ضوء النهار بدلاً من حجبه."],
+      "layout": ["قاعدة القطع الأقل: أبقِ سطح المكتب لثلاث أدوات فقط.", "اترك ممراً لا يقل عن 90 سم بين الكرسي والجدار.", "ارفع التخزين على الجدار ليبقى الأرض فارغة وتبدو الغرفة أكبر."],
+      "products": [
+        { "sku": "ikea-20450520", "cat": "pendant", "name": "VINDKAST إضاءة معلقة بيضاء 50 سم", "store": "ikea", "price": 195, "url": "https://www.ikea.com/il/he/p/vindkast-pendant-lamp-white-20450520/" },
+        { "sku": "ikea-80404422", "cat": "deskLamp", "name": "NÄVLINGE مصباح عمل LED أسود بذراع متحركة", "store": "ikea", "price": 95, "url": "https://www.ikea.com/il/he/p/naevlinge-led-work-lamp-black-80404422/" },
+        { "sku": "ikea-00576436", "cat": "rug", "name": "ÄRENDE سجادة رمادية طويلة الوبر 160×230 سم", "store": "ikea", "price": 295, "url": "https://www.ikea.com/il/he/p/aerende-rug-high-pile-grey-00576436/" },
+        { "sku": "ikea-s89325963", "cat": "shelf", "name": "BURHULT/SIBBHULT رف جداري أبيض 59×20 سم", "store": "ikea", "price": 29, "url": "https://www.ikea.com/il/he/p/burhult-sibbhult-wall-shelf-white-white-s89325963/" },
+        { "sku": "ikea-90600861", "cat": "plant", "name": "FEJKA فيلودندرون صناعي بأصيص 15 سم", "store": "ikea", "price": 89, "url": "https://www.ikea.com/il/he/p/fejka-artificial-potted-plant-in-outdoor-philodendron-green-pink-90600861/" },
+        { "sku": "ikea-50554502", "cat": "art", "name": "PJÄTTERYD لوحة «ضوء القمر» 50×70 سم", "store": "ikea", "price": 95, "url": "https://www.ikea.com/il/he/p/pjaetteryd-picture-moonlight-50554502/" },
+        { "sku": "ikea-30605418", "cat": "curtain", "name": "GINSTMOTT ستائر بيضاء بحلقات، زوج 145×300 سم", "store": "ikea", "price": 125, "url": "https://www.ikea.com/il/he/p/ginstmott-curtains-1-pair-white-with-eyelets-30605418/" },
+        { "sku": "ikea-10489028", "cat": "chair", "name": "FLINTAN كرسي مكتب أسود بظهر شبكي", "store": "ikea", "price": 395, "url": "https://www.ikea.com/il/he/p/flintan-office-chair-black-10489028/" },
+        { "sku": "ikea-00309198", "cat": "floorLamp", "name": "VIDJA مصباح أرضي أبيض 138 سم", "store": "ikea", "price": 225, "url": "https://www.ikea.com/il/he/p/vidja-floor-lamp-white-00309198/" },
+        { "sku": "ikea-20573286", "cat": "pouf", "name": "GLOSTAD بوف رمادي داكن", "store": "ikea", "price": 295, "url": "https://www.ikea.com/il/he/p/glostad-footstool-knisa-dark-grey-20573286/" },
+        { "sku": "fox-0335825800", "cat": "rug", "name": "Ori سجادة رمادية هندسية بأهداب 150×90 سم", "store": "fox", "price": 119.94, "list_price": 199.9, "url": "https://www.foxhome.co.il/products/0335825800" }
+      ]
+    },
+    {
+      "id": "cafe", "name": "طابع كافيه", "paletteName": "قهوة محمّصة ونحاس", "glow": "#FFB45E", "floor": "#6B4A35", "desk": "#4A3326",
+      "palette": [["#5A4033", "قهوة محمصة"], ["#3B2A22", "إسبريسو"], ["#C79A6B", "كراميل"], ["#2F4F3E", "أخضر زجاجي"], ["#E8DCCB", "رغوة الحليب"]],
+      "analysis": ["الجدران فاتحة جداً للطابع المطلوب", "ينقص الغرفة ضوء موضعي دافئ", "زاوية النافذة مناسبة لركن قراءة"],
+      "light": ["إضاءة معلقة منخفضة فوق المكتب كطاولة مقهى.", "سلسلة لمبات على الجدار الخلفي لجو المساء.", "تجنّب الإضاءة السقفية المركزية تماماً بعد الغروب."],
+      "layout": ["اجعل المكتب كطاولة بار بجانب رف مفتوح للأكواب والكتب.", "ركن جلوس صغير قرب النافذة مع بوف ونبتة متدلية.", "سجادة بنمط إثني تفصل منطقة العمل عن منطقة الاسترخاء."],
+      "products": [
+        { "sku": "ikea-80407114", "cat": "pendant", "name": "SKURUP إضاءة معلقة سوداء بطراز صناعي 38 سم", "store": "ikea", "price": 145, "url": "https://www.ikea.com/il/he/p/skurup-pendant-lamp-black-80407114/" },
+        { "sku": "ikea-50610584", "cat": "string", "name": "UTSUND سلسلة 12 لمبة LED سوداء على بطارية", "store": "ikea", "price": 75, "url": "https://www.ikea.com/il/he/p/utsund-led-lighting-chain-with-12-bulbs-outdoor-battery-operated-black-50610584/" },
+        { "sku": "ikea-80417735", "cat": "shelf", "name": "GULLHULT رف جداري أسود/صنوبر عتيق 30×40 سم", "store": "ikea", "price": 125, "url": "https://www.ikea.com/il/he/p/gullhult-wall-shelf-black-pine-antique-effect-80417735/" },
+        { "sku": "fox-0321849996", "cat": "rug", "name": "Mario سجادة يدوية بنقش إثني أخضر داكن 170×70 سم", "store": "fox", "price": 203.94, "list_price": 339.9, "url": "https://www.foxhome.co.il/products/0321849996" },
+        { "sku": "ikea-80600852", "cat": "plant", "name": "FEJKA لبلاب صناعي متدلٍّ بأصيص 15 سم", "store": "ikea", "price": 89, "url": "https://www.ikea.com/il/he/p/fejka-artificial-potted-plant-in-outdoor-hanging-ivy-80600852/" },
+        { "sku": "ikea-40566398", "cat": "art", "name": "RÖDALM إطار بلون البلوط 40×50 سم لقائمة أو ملصق", "store": "ikea", "price": 59, "url": "https://www.ikea.com/il/he/p/roedalm-frame-oak-effect-40566398/" },
+        { "sku": "ikea-90605255", "cat": "chair", "name": "SANDSBERG كرسي بني محمر بطراز البيسترو", "store": "ikea", "price": 95, "url": "https://www.ikea.com/il/he/p/sandsberg-chair-red-brown-remmarn-red-brown-90605255/" },
+        { "sku": "ikea-60323894", "cat": "deskLamp", "name": "TÄRNABY مصباح طاولة أسود بطراز مصباح الزيت", "store": "ikea", "price": 125, "url": "https://www.ikea.com/il/he/p/taernaby-table-lamp-dimmable-anthracite-60323894/" },
+        { "sku": "ikea-20631564", "cat": "curtain", "name": "SANELA ستائر مخمل بني داكن، زوج 140×300 سم", "store": "ikea", "price": 395, "url": "https://www.ikea.com/il/he/p/sanela-curtains-1-pair-dark-brown-with-heading-tape-20631564/" },
+        { "sku": "ikea-00385309", "cat": "pouf", "name": "SANDARED بوف رمادي 56 سم", "store": "ikea", "price": 345, "url": "https://www.ikea.com/il/he/p/sandared-pouffe-grey-00385309/" },
+        { "sku": "ikea-80577880", "cat": "pendant", "name": "AKTERSPRING إضاءة معلقة زجاج أوبال/نحاس 73 سم", "store": "ikea", "price": 295, "url": "https://www.ikea.com/il/he/p/akterspring-pendant-lamp-opal-white-glass-brass-plated-80577880/" }
+      ]
+    },
+    {
+      "id": "creative", "name": "استوديو إبداعي", "paletteName": "كحلي وألوان الطباعة", "glow": "#FFE7A8", "floor": "#B99B78", "desk": "#F4F1E8",
+      "palette": [["#25324F", "كحلي"], ["#F25F5C", "مرجاني"], ["#FFD25A", "أصفر طباعة"], ["#2E86AB", "أزرق سماوي"], ["#F4F1E8", "ورق خام"]],
+      "analysis": ["لا مكان لعرض الأدوات والإلهام", "الإضاءة لا تكفي للرسم أو التصوير", "جدار واحد يتحمل لوناً جريئاً"],
+      "light": ["مصباح مكتب LED موجّه للرسم والتصوير.", "شريط LED خلف المكتب يخفف إجهاد العين ليلاً.", "مصباح أرضي بثلاثة رؤوس يوجّه الضوء لعدة مناطق عمل."],
+      "layout": ["لوح مثقب فوق المكتب يحوّل الأدوات إلى جزء من الديكور.", "ادهن الجدار الخلفي فقط بالكحلي واترك البقية فاتحة.", "بين باغ بجانب النافذة كركن للعصف الذهني بعيداً عن الشاشة."],
+      "products": [
+        { "sku": "ikea-80574711", "cat": "deskLamp", "name": "NÄVLINGE مصباح مكتب LED أصفر/أبيض", "store": "ikea", "price": 95, "url": "https://www.ikea.com/il/he/p/naevlinge-led-desk-lamp-yellow-white-80574711/" },
+        { "sku": "ikea-10321618", "cat": "shelf", "name": "SKÅDIS لوح مثقب أبيض 76×56 سم", "store": "ikea", "price": 125, "url": "https://www.ikea.com/il/he/p/skadis-pegboard-white-10321618/" },
+        { "sku": "ikea-80601998", "cat": "art", "name": "KNOPPÄNG طقم 8 إطارات مع ملصقات", "store": "ikea", "price": 195, "url": "https://www.ikea.com/il/he/p/knoppaeng-frame-with-poster-set-of-8-folk-tales-80601998/" },
+        { "sku": "ikea-40587032", "cat": "rug", "name": "VÄGSKYLT سجادة منسوجة أزرق مخضر/أسود 80×150 سم", "store": "ikea", "price": 195, "url": "https://www.ikea.com/il/he/p/vaegskylt-rug-flatwoven-blue-green-black-40587032/" },
+        { "sku": "ikea-10609667", "cat": "string", "name": "KABBLEKA شريط LED بمنفذ USB متعدد الألوان 3 م", "store": "ikea", "price": 95, "url": "https://www.ikea.com/il/he/p/kabbleka-led-lighting-strip-with-usb-adjustable-colour-10609667/" },
+        { "sku": "ikea-50519764", "cat": "plant", "name": "FEJKA 3 نباتات عصارية صناعية بأصص", "store": "ikea", "price": 19, "url": "https://www.ikea.com/il/he/p/fejka-artificial-potted-plant-with-pot-in-outdoor-succulent-50519764/" },
+        { "sku": "ikea-10489028-c", "cat": "chair", "name": "FLINTAN كرسي مكتب أسود بظهر شبكي", "store": "ikea", "price": 395, "url": "https://www.ikea.com/il/he/p/flintan-office-chair-black-10489028/" },
+        { "sku": "hc-1745870436187", "cat": "pouf", "name": "Chill Pouf بين باغ كبير 85×130 سم فوشيا", "store": "hc", "price": 319, "url": "https://www.homecenter.co.il/products/1745870436187", "note": "توصيل للمنزل فقط، 49 ₪ خلال 10 أيام عمل" },
+        { "sku": "ikea-20393600", "cat": "floorLamp", "name": "HEKTAR مصباح أرضي بثلاثة رؤوس رمادي داكن", "store": "ikea", "price": 395, "url": "https://www.ikea.com/il/he/p/hektar-floor-lamp-with-3-spot-dark-grey-20393600/" },
+        { "sku": "ikea-80597190", "cat": "curtain", "name": "GINSTMOTT ستائر كحلية بشريط تجميع، زوج 145×300 سم", "store": "ikea", "price": 125, "url": "https://www.ikea.com/il/he/p/ginstmott-curtains-1-pair-dark-blue-with-heading-tape-80597190/" },
+        { "sku": "ikea-60497078", "cat": "rug", "name": "ONSEVIG سجادة متعددة الألوان 160×235 سم", "store": "ikea", "price": 550, "url": "https://www.ikea.com/il/he/p/onsevig-rug-low-pile-multicolour-60497078/" }
+      ]
+    }
+  ]
+}
